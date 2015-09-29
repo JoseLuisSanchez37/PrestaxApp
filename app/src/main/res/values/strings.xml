@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Prestax App</string>
+
+    <!-- Volley Error Helper -->
+    <string name="generic_server_down">Servicio no disponible</string>
+    <string name="generic_error">Error al conectar con el servicio</string>
+    <string name="no_internet">No existe conexión a Internet</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- Error messages -->
+    <string name="empty_field">El campo no puede ir vacío</string>
+
+    <!-- Messages server-->
+    <string name="not_found_search">Folio y/o contraseña incorrectos</string>
+    <string name="search_folio">Ingrese su número de folio</string>
+    <string name="error_unknow">Error desconocido</string>
+    <string name="error_when_save">Ocurrio un error al guardar el comprobante. Intentelo nuevamente</string>
+    <string name="upload_successfull">El comprobante se ha enviado correctamente</string>
+
+    <!-- Message Confirm Send Data to WebService -->
+    <string name="confirm_send_data">Confirmar Captura</string>
+    <string name="confirm_send_data_message">Para continuar presione ENVIAR COMPROBANTE. Si no desea continuar, presiona CERRAR</string>
+    <string name="send_data">Enviar comprobante</string>
+    <string name="continue_edit">Cerrar</string>
+
+</resources>
