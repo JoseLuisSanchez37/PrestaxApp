@@ -3,6 +3,7 @@ package com.prestax.app.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -17,6 +18,8 @@ import com.prestax.app.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +35,6 @@ public class SearchFolio extends Activity implements ListenerVolleyResponse{
 
         edt_folio = (EditText) findViewById(R.id.edt_folio);
         edt_password = (EditText) findViewById(R.id.edt_password);
-
     }
 
     public void searchFolio(View v){
@@ -65,6 +67,7 @@ public class SearchFolio extends Activity implements ListenerVolleyResponse{
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra(KEY.PARAMS, response.toString());
                     startActivity(intent);
+                    finish();
                 }else{
                     DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(Messages.getResponseFromResultCode(this,
                             response.getInt(KEY.RESULT_CODE)), Messages.ERROR);

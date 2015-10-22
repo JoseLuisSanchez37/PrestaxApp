@@ -48,7 +48,6 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
                     description,
                     amount,
                     type,
-                    date_start,
                     date_end,
                     picture_name,
                     img_path;
@@ -57,7 +56,8 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
                     txv_customer_name,
                     txv_description,
                     txv_amount,
-                    txv_date_pay_or_renovation;
+                    txv_date_pay_or_renovation,
+                    txv_percent_to_pay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,6 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
             description         = response.getString(KEY.DESCRIPTION);
             amount              = response.getString(KEY.AMOUNT);
             type                = response.getString(KEY.TYPE_PROVIDER);
-            date_start          = response.getString(KEY.DATE_START);
             date_end            = response.getString(KEY.DATE_END);
 
         } catch (JSONException e) {
@@ -91,19 +90,34 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
         txv_description = (TextView) findViewById(R.id.txv_description);
         txv_amount = (TextView) findViewById(R.id.txv_amount);
         txv_date_pay_or_renovation = (TextView) findViewById(R.id.txv_date_to_pay);
+        txv_percent_to_pay = (TextView) findViewById(R.id.txv_percent_to_pay);
 
         txv_folio.setText(folio);
         txv_customer_name.setText(customer_name);
-        txv_amount.setText("$ "+money.format(Double.parseDouble(amount)));
+        txv_amount.setText("$ " + money.format(Double.parseDouble(amount)));
         txv_description.setText(description);
-        txv_date_pay_or_renovation.setText(date_end);
-
+        txv_date_pay_or_renovation.setText(setDateToPay());
+        txv_percent_to_pay.setText("$ " + money.format(getPercentToPay(type, amount)));
     }
 
     public void exit(View view){
         Intent intent = new Intent(this, SearchFolio.class);
         startActivity(intent);
         finish();
+    }
+
+    public void startPaypal(View view){
+        Intent paypal = new Intent(this, PayPal.class);
+        switch (view.getId()){
+            case R.id.btn_paypal_total:
+                paypal.putExtra(PayPal.TYPE, PayPal.PAGO_TOTAL);
+                startActivity(paypal);
+                break;
+            case R.id.btn_paypal_month:
+                paypal.putExtra(PayPal.TYPE, PayPal.PAGO_MENSUAL);
+                startActivity(paypal);
+                break;
+        }
     }
 
     public void takeAPicture(View view){
@@ -114,28 +128,54 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
 
     private Uri setImageUri(){
         Calendar c = Calendar.getInstance();
-        Date d = c.getTime();
-        String picture_name = d.getDay() + "_" + d.getMonth() + "_" + d.getYear()
-                +"__" + d.getHours() + "_" + d.getMinutes() +".jpeg";
+        int month = c.get(Calendar.MONTH);
+        month++;
+
+        String picture_name = c.get(Calendar.DAY_OF_MONTH) +
+                "-" + month +
+                "-" + c.get(Calendar.YEAR) +
+                "--" + c.get(Calendar.HOUR) +
+                ":" + c.get(Calendar.MINUTE) +
+                ".jpeg";
 
         this.picture_name = picture_name.substring(0, picture_name.length() - 5);
-        Log.v("takeAPicture()", this.picture_name);
+        Log.v("picture name", this.picture_name);
         File file= new File(Environment.getExternalStorageDirectory(), picture_name);
         Uri imgUri = Uri.fromFile(file);
         this.img_path = file.getAbsolutePath();
         return imgUri;
     }
 
-    private void setData(){
+    private String setDateToPay(){
         String date_end = this.date_end;
-        Date date = new Date();
-        int day = Integer.parseInt(date_end.substring(0, 1));
-        int month = Integer.parseInt(date_end.substring(3, 4));
-        int year = Integer.parseInt(date_end.substring(5, 6));
-        date.setDate(day);
-        date.setMonth(month);
-        date.setYear(year);
+        int day = Integer.parseInt(date_end.substring(0, 2));
+        Log.v("day", day + "");
 
+        Calendar date = Calendar.getInstance();
+        Calendar current_date = Calendar.getInstance();
+        date.set(Calendar.DAY_OF_MONTH, day);
+
+        if(current_date.after(date) | current_date.getTimeInMillis() == date.getTimeInMillis()){
+            date.set(Calendar.MONTH, date.get(Calendar.MONTH) + 1);
+            date_end = date.get(Calendar.DAY_OF_MONTH) + " de " + getMonth(date.get(Calendar.MONTH)) + " del " + date.get(Calendar.YEAR);
+
+        }else if(current_date.before(date)){
+            date_end = date.get(Calendar.DAY_OF_MONTH) + " de " + getMonth(date.get(Calendar.MONTH)) + " del " + date.get(Calendar.YEAR);
+        }
+        return date_end;
+    }
+
+    public double getPercentToPay(String type, String amount){
+        int amount_temp = Integer.parseInt(amount);
+        double percent = 0;
+
+        if(type.equals("2")){//bimestral
+            percent = amount_temp * 0.07;
+        }else if(type.equals("1")){//mes
+            percent = amount_temp * 0.14;
+        }
+
+        return percent;
     }
 
     @Override
@@ -166,16 +206,59 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
         HashMap<String,String> data = new HashMap<>();
         data.put(KEY.FOLIO,         folio);
         data.put(KEY.PICTURE,       encodeToBase64(img_path));
-        data.put(KEY.PICTURE_NAME,  picture_name);
+        data.put(KEY.PICTURE_NAME, picture_name);
         return data;
     }
 
     public static String encodeToBase64(String img_path){
         Bitmap bitmap = BitmapFactory.decodeFile(img_path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos);
         byte[] b = baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
+    }
+
+    private String getMonth(int month){
+        switch (month){
+            case Calendar.JANUARY:
+                return getString(R.string.january);
+
+            case Calendar.FEBRUARY:
+                return getString(R.string.february);
+
+            case Calendar.MARCH:
+                return getString(R.string.march);
+
+            case Calendar.APRIL:
+                return getString(R.string.april);
+
+            case Calendar.MAY:
+                return getString(R.string.may);
+
+            case Calendar.JUNE:
+                return getString(R.string.june);
+
+            case Calendar.JULY:
+                return getString(R.string.july);
+
+            case Calendar.AUGUST:
+                return getString(R.string.august);
+
+            case Calendar.SEPTEMBER:
+                return getString(R.string.september);
+
+            case Calendar.OCTOBER:
+                return getString(R.string.october);
+
+            case Calendar.NOVEMBER:
+                return getString(R.string.november);
+
+            case Calendar.DECEMBER:
+                return getString(R.string.december);
+
+            default:
+                return "";
+        }
     }
 
     @Override
@@ -205,6 +288,11 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
         VolleyManager.getInstance().setActivity(this);
         VolleyManager.getInstance().setListener(this);
         VolleyManager.getInstance().sendRequest(requestType, params);
+    }
+
+    @Override
+    public void onBackPressed(){
+
     }
 }
 

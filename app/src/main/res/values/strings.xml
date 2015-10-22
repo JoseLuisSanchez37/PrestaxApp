@@ -23,4 +23,28 @@
     <string name="send_data">Enviar comprobante</string>
     <string name="continue_edit">Cerrar</string>
 
+    <!-- months -->
+    <string name="january">Enero</string>
+    <string name="february">Febrero</string>
+    <string name="march">Marzo</string>
+    <string name="april">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="june">Junio</string>
+    <string name="july">Julio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Septiembre</string>
+    <string name="october">Octubre</string>
+    <string name="november">Noviembre</string>
+    <string name="december">Diciembre</string>
+    <string name="title_activity_pay_pal">PayPal</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Url PayPal -->
+    <string name="url_paypal">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick</string>
+    <string name="type_paypal_total">hosted_button_id=R53A6QP8RKR94</string>
+    <string name="type_paypal_month">hosted_button_id=8YQYTHSXCHDXW</string>
+    <string name="paypal_error">"Lo sentimos, ocurrio un error al cargar la página"</string>
+
 </resources>

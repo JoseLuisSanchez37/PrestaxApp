@@ -54,7 +54,7 @@ public class VolleyManager implements
         progress = new LoadingDialog(activity);
         progress.show();
         JSONRequest jsonRequest = new JSONRequest(Request.Method.POST, API, params, this, this);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 0.5f));
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 0.5f));
         try {
             Log.v("params", jsonRequest.getParams().toString());
         } catch (AuthFailureError authFailureError) {

@@ -1,107 +1,206 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    android:background="@android:color/white">
-
-    <!-- Title -->
-
-    <TextView
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:text="Información del Préstamo"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
-
-    <!-- Información del cliente -->
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:orientation="vertical"
-        android:background="@drawable/background_liner_border"
-        android:padding="5dp"
-        android:layout_marginBottom="10dp">
+        android:background="@android:color/white">
+
+        <!-- Title -->
+
+        <TextView
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:text="Información del Préstamo"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Información del cliente -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@color/concrete"
-                android:text="Cliente"/>
-
-            <TextView
-                android:id="@+id/txv_customer_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@android:color/black"
-                android:text="Jose Luis Sanchez Cruz"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:background="@drawable/background_liner_border"
+            android:padding="5dp"
             android:layout_marginBottom="10dp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Small"
                     android:textColor="@color/concrete"
-                    android:text="Teléfono de Contacto"/>
+                    android:text="Cliente"/>
 
                 <TextView
-                    android:id="@+id/txv_telephone_number"
+                    android:id="@+id/txv_customer_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Small"
                     android:textColor="@android:color/black"
-                    android:text="7711266650"/>
+                    android:text="Jose Luis Sanchez Cruz"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:textColor="@color/concrete"
+                        android:text="Teléfono de Contacto"/>
+
+                    <TextView
+                        android:id="@+id/txv_telephone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:textColor="@android:color/black"
+                        android:text="7711266650"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:textColor="@color/concrete"
+                        android:text="Folio"/>
+
+                    <TextView
+                        android:id="@+id/txv_folio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:textColor="@android:color/black"
+                        android:text="233073"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Small"
                     android:textColor="@color/concrete"
-                    android:text="Folio"/>
+                    android:text="Descripción"/>
 
                 <TextView
-                    android:id="@+id/txv_folio"
+                    android:id="@+id/txv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.Small"
                     android:textColor="@android:color/black"
-                    android:text="233073"/>
+                    android:text="computadora portatil"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Small"
+                    android:textColor="@color/concrete"
+                    android:text="Monto"/>
+
+                <TextView
+                    android:id="@+id/txv_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Small"
+                    android:textColor="@android:color/black"
+                    android:text="4,200.00"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Small"
+                    android:textColor="@color/concrete"
+                    android:text="Fecha de pago"/>
+
+                <TextView
+                    android:id="@+id/txv_date_to_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Small"
+                    android:textColor="@android:color/black"
+                    android:text="12 de febrero de 2015"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Small"
+                    android:textColor="@color/concrete"
+                    android:text="Cantidad a pagar"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txv_percent_to_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:textColor="@android:color/black"
+                    android:text="204"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -110,23 +209,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp">
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
+            <Button
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@color/concrete"
-                android:text="Descripción"/>
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/selector_button"
+                android:textColor="@android:color/white"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold"
+                android:text="Salir"
+                android:onClick="exit"/>
 
-            <TextView
-                android:id="@+id/txv_description"
-                android:layout_width="match_parent"
+            <Button
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@android:color/black"
-                android:text="computadora portatil"/>
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/selector_button"
+                android:textColor="@android:color/white"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textStyle="bold"
+                android:text="Tomar foto de comprobante"
+                android:onClick="takeAPicture" />
 
         </LinearLayout>
 
@@ -134,84 +246,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="10dp">
+            android:background="@drawable/background_liner_border"
+            android:padding="5dp"
+            android:layout_marginTop="10dp">
 
-            <TextView
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_paypal"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@color/concrete"
-                android:text="Monto"/>
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txv_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@android:color/black"
-                android:text="4,200.00"/>
+                <Button
+                    android:id="@+id/btn_paypal_total"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/selector_button"
+                    android:textColor="@android:color/white"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textStyle="bold"
+                    android:text="Pago Total"
+                    android:onClick="startPaypal"
+                    android:textAppearance="@android:style/TextAppearance.Medium"/>
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btn_paypal_month"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/selector_button"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="startPaypal"
+                    android:textStyle="bold"
+                    android:text="Pago Mensual"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:textColor="@android:color/white"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@color/concrete"
-                android:text="Fecha de pago"/>
-
-            <TextView
-                android:id="@+id/txv_date_to_pay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.Small"
-                android:textColor="@android:color/black"
-                android:text="12 de febrero de 2015"/>
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_marginTop="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/selector_button"
-            android:textColor="@android:color/white"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold"
-            android:text="Salir"
-            android:onClick="exit"/>
-
-        <Button
-            android:layout_marginTop="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/selector_button"
-            android:textColor="@android:color/white"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textStyle="bold"
-            android:text="Tomar foto de comprobante"
-            android:onClick="takeAPicture" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
