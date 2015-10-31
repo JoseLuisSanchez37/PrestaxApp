@@ -10,7 +10,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.prestax.app.Listeners.ListenerVolleyResponse;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +23,7 @@ public class VolleyManager implements
         Response.ErrorListener{
 
     private static final String API = "http://otakulife.co/prestamos/prestamos.php";
+    //private static final String API = "http://prestax.260mb.net/prestamos/prestamos.php";
 
     private static VolleyManager volleyManager;
     private Activity activity;
@@ -54,7 +54,7 @@ public class VolleyManager implements
         progress = new LoadingDialog(activity);
         progress.show();
         JSONRequest jsonRequest = new JSONRequest(Request.Method.POST, API, params, this, this);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 3, 0.5f));
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 1, 0.5f));
         try {
             Log.v("params", jsonRequest.getParams().toString());
         } catch (AuthFailureError authFailureError) {

@@ -13,9 +13,6 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.prestax.app.Fragments.DialogFragmentMessage;
@@ -25,7 +22,6 @@ import com.prestax.app.Networking.Messages;
 import com.prestax.app.Networking.RequestType;
 import com.prestax.app.Networking.VolleyManager;
 import com.prestax.app.R;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +30,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -206,14 +201,14 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
         HashMap<String,String> data = new HashMap<>();
         data.put(KEY.FOLIO,         folio);
         data.put(KEY.PICTURE,       encodeToBase64(img_path));
-        data.put(KEY.PICTURE_NAME, picture_name);
+        data.put(KEY.PICTURE_NAME,  picture_name);
         return data;
     }
 
     public static String encodeToBase64(String img_path){
         Bitmap bitmap = BitmapFactory.decodeFile(img_path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 26, baos);
         byte[] b = baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
     }
