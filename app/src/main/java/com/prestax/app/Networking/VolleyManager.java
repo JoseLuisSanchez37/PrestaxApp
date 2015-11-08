@@ -54,7 +54,7 @@ public class VolleyManager implements
         progress = new LoadingDialog(activity);
         progress.show();
         JSONRequest jsonRequest = new JSONRequest(Request.Method.POST, API, params, this, this);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 1, 0.5f));
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(20000, 1, 1f));
         try {
             Log.v("params", jsonRequest.getParams().toString());
         } catch (AuthFailureError authFailureError) {
@@ -65,6 +65,7 @@ public class VolleyManager implements
 
     @Override
     public void onResponse(JSONObject response) {
+        Log.v("onResponse", response.toString());
         progress.dismiss();
         listener.onResponse(response);
     }
@@ -72,7 +73,6 @@ public class VolleyManager implements
     @Override
     public void onErrorResponse(VolleyError error) {
         try {
-            Log.v("onErrorReponse", error.toString());
             progress.dismiss();
             JSONObject jsonError = new JSONObject();
             jsonError.put(KEY.ERROR, VolleyErrorHelper.getMessage(error, activity));

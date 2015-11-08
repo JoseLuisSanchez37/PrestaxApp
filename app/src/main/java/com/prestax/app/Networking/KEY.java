@@ -23,5 +23,7 @@ public class KEY {
     public static final String PICTURE = "picture";
     public static final String PICTURE_NAME = "picture_name";
 
+    public static final String PAYMENT_REFERENCE = "payment_reference";
+
 }
 

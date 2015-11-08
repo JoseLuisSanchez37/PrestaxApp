@@ -243,6 +243,49 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_container_payment_reference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/background_liner_border"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_paypal"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/payment_reference_message"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:textColor="@color/primary_dark_material_dark"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/edt_payment_reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:background="@color/clouds"
+                android:maxLength="20"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:enabled="false"
+                android:gravity="center_horizontal"
+                android:focusable="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

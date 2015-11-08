@@ -13,15 +13,18 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.prestax.app.Fragments.DialogFragmentMessage;
 import com.prestax.app.Listeners.ListenerVolleyResponse;
 import com.prestax.app.Networking.KEY;
-import com.prestax.app.Networking.Messages;
+import com.prestax.app.Networking.RESULTCODE;
 import com.prestax.app.Networking.RequestType;
 import com.prestax.app.Networking.VolleyManager;
 import com.prestax.app.R;
+import com.prestax.app.Utils.Util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +48,7 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
                     type,
                     date_end,
                     picture_name,
+                    payment_reference,
                     img_path;
 
     private TextView txv_folio,
@@ -53,6 +57,10 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
                     txv_amount,
                     txv_date_pay_or_renovation,
                     txv_percent_to_pay;
+
+    private LinearLayout linear_container_payment_reference;
+
+    private EditText edt_payment_reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +81,7 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
             amount              = response.getString(KEY.AMOUNT);
             type                = response.getString(KEY.TYPE_PROVIDER);
             date_end            = response.getString(KEY.DATE_END);
+            payment_reference   = response.getString(KEY.PAYMENT_REFERENCE);
 
         } catch (JSONException e) {
             Log.v("onCreate-->", e.getMessage());
@@ -86,6 +95,8 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
         txv_amount = (TextView) findViewById(R.id.txv_amount);
         txv_date_pay_or_renovation = (TextView) findViewById(R.id.txv_date_to_pay);
         txv_percent_to_pay = (TextView) findViewById(R.id.txv_percent_to_pay);
+        linear_container_payment_reference = (LinearLayout) findViewById(R.id.linear_container_payment_reference);
+        edt_payment_reference = (EditText) findViewById(R.id.edt_payment_reference);
 
         txv_folio.setText(folio);
         txv_customer_name.setText(customer_name);
@@ -93,6 +104,11 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
         txv_description.setText(description);
         txv_date_pay_or_renovation.setText(setDateToPay());
         txv_percent_to_pay.setText("$ " + money.format(getPercentToPay(type, amount)));
+
+        if (payment_reference != "0"){
+            linear_container_payment_reference.setVisibility(View.VISIBLE);
+            edt_payment_reference.setText(payment_reference);
+        }
     }
 
     public void exit(View view){
@@ -208,7 +224,7 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
     public static String encodeToBase64(String img_path){
         Bitmap bitmap = BitmapFactory.decodeFile(img_path);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 26, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 28, baos);
         byte[] b = baos.toByteArray();
         return Base64.encodeToString(b, Base64.DEFAULT);
     }
@@ -260,17 +276,21 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
     public void onResponse(JSONObject response) {
         try {
             if (response.has(KEY.RESULT_CODE)){
-                if(response.getInt(KEY.RESULT_CODE) == 30){
-                    String message = Messages.getResponseFromResultCode(this, response.getInt(KEY.RESULT_CODE));
-                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, Messages.OK);
+
+                int code = response.getInt(KEY.RESULT_CODE);
+
+                if(code == RESULTCODE.UPLOAD_BAUCHER_SUCCESS){
+                    String message = RESULTCODE.getMessage(this, code);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, RESULTCODE.SUCCESS);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
-                }else{
-                    String message = Messages.getResponseFromResultCode(this, response.getInt(KEY.RESULT_CODE));
-                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, Messages.ERROR);
+
+                }else if (code == RESULTCODE.UPLOAD_BAUCHER_FAILED){
+                    String message = RESULTCODE.getMessage(this, code);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, RESULTCODE.FAILED);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
                 }
             }else if(response.has(KEY.ERROR)){
-                DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(response.getString(KEY.ERROR), Messages.ERROR);
+                DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(response.getString(KEY.ERROR), RESULTCODE.FAILED);
                 dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
             }
         } catch (JSONException e) {
@@ -286,8 +306,12 @@ public class MainActivity extends Activity implements ListenerVolleyResponse{
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed(){  }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
     }
+
 }
 

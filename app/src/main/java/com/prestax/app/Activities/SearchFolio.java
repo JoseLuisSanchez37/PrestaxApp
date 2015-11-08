@@ -3,23 +3,21 @@ package com.prestax.app.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.prestax.app.Fragments.DialogFragmentMessage;
 import com.prestax.app.Listeners.ListenerVolleyResponse;
 import com.prestax.app.Networking.KEY;
-import com.prestax.app.Networking.Messages;
+import com.prestax.app.Networking.RESULTCODE;
 import com.prestax.app.Networking.RequestType;
 import com.prestax.app.Networking.VolleyManager;
 import com.prestax.app.R;
+import com.prestax.app.Utils.Util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +43,7 @@ public class SearchFolio extends Activity implements ListenerVolleyResponse{
             edt_password.setError(getString(R.string.empty_field));
             edt_password.requestFocus();
         } else {
+            Util.hideSoftKeyboard(this);
             sendRequest(RequestType.SEARCH_FOLIO, new HashMap<String, String>());
         }
     }
@@ -63,23 +62,31 @@ public class SearchFolio extends Activity implements ListenerVolleyResponse{
     public void onResponse(JSONObject response) {
         try {
             if (response.has(KEY.RESULT_CODE)){
-                if(response.getInt(KEY.RESULT_CODE) == Messages.OK){
+
+                int code = response.getInt(KEY.RESULT_CODE);
+
+                if(code == RESULTCODE.SEARCH_FOLIO_SUCCESS){
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra(KEY.PARAMS, response.toString());
                     startActivity(intent);
                     finish();
                 }else{
-                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(Messages.getResponseFromResultCode(this,
-                            response.getInt(KEY.RESULT_CODE)), Messages.ERROR);
+                    String message = RESULTCODE.getMessage(this, code);
+                    DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(message, RESULTCODE.FAILED);
                     dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
                 }
             }else if(response.has(KEY.ERROR)){
-                DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(response.getString(KEY.ERROR), Messages.ERROR);
+                DialogFragmentMessage dialog = DialogFragmentMessage.newInstance(response.getString(KEY.ERROR), RESULTCODE.FAILED);
                 dialog.show(getFragmentManager(), DialogFragmentMessage.TAG);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
     }
 
 }

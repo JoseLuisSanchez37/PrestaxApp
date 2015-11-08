@@ -10,7 +10,8 @@
     <!-- Error messages -->
     <string name="empty_field">El campo no puede ir vacío</string>
 
-    <!-- Messages server-->
+    <!-- RESULTCODE server-->
+    <string name="login_success">Login satisfactorio</string>
     <string name="not_found_search">Folio y/o contraseña incorrectos</string>
     <string name="search_folio">Ingrese su número de folio</string>
     <string name="error_unknow">Error desconocido</string>
@@ -19,7 +20,7 @@
 
     <!-- Message Confirm Send Data to WebService -->
     <string name="confirm_send_data">Confirmar Captura</string>
-    <string name="confirm_send_data_message">Para continuar presione ENVIAR COMPROBANTE. Si no desea continuar, presiona CERRAR</string>
+    <string name="confirm_send_data_message">Para continuar presione ENVIAR COMPROBANTE. Asegúrate de tener una buena señal de 3G o WiFi</string>
     <string name="send_data">Enviar comprobante</string>
     <string name="continue_edit">Cerrar</string>
 
@@ -46,5 +47,9 @@
     <string name="type_paypal_total">hosted_button_id=R53A6QP8RKR94</string>
     <string name="type_paypal_month">hosted_button_id=8YQYTHSXCHDXW</string>
     <string name="paypal_error">"Lo sentimos, ocurrio un error al cargar la página"</string>
+
+
+    <!-- pagos -->
+    <string name="payment_reference_message">Para pagos en OXXO y bancos, depositar a la siguiente referencia</string>
 
 </resources>
